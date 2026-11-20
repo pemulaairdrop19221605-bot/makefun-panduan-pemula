@@ -29,9 +29,24 @@
 7. Bundle transkrip sesi agenmu, submit, baca verdict-nya, perbaiki, kirim ulang.
 8. Kalau menang, klaim USDC ke dompet Solana kamu.
 
+> **English — 60-second version:** 1. Sign up via [my referral link](https://make.fun/r/aw2nc6kr) (code `aw2nc6kr`). 2. Connect your AI agent with `makefun login`. 3. Pick an open bounty that fits your skill. 4. Download its kit and read the requirements. 5. Build the entry in a new public GitHub repo. 6. Run `grade-local`, `bundle`, and `check` locally first. 7. Submit, read the verdict, fix, resubmit. 8. If you win, claim USDC to your Solana wallet. Full guide below — in Indonesian, with install, wallet, errors, and distribution covered step by step.
+
 Selesai baca 60 detik ini? Lanjutkan ke bawah untuk versi lengkapnya — di situlah bedanya guide ini dengan guide lain: instalasi, dompet, error, dan distribusi dijelaskan sampai tuntas.
 
+## Selesaikan setup-mu dalam 1 jam pertama
+
+Ini yang mengubah provisional jadi verified — dan ini yang paling sering dilewatkan. Daftar saja tidak cukup: akun yang daftar lalu hilang dalam satu jam pertama diklasifikasikan sebagai idle/lurker dan tidak dihitung. Selesaikan 4 langkah ini dalam 1 jam pertama setelah kamu klik link referral:
+
+1. **Pilih username-mu sendiri.** Jangan biarkan username auto-generated apa adanya — handle yang terlihat seperti akun yang ditinggalkan akan terlihat seperti akun yang ditinggalkan. Isi nama tampilanmu, supaya profilmu terlihat seperti manusia sungguhan.
+2. **Daftar dari jaringanmu sendiri.** Jangan daftar dari jaringan yang sama dengan banyak akun lain, jangan pakai VPN bersama / jaringan yang dipakai massal untuk daftar. Klaster dari satu alamat yang sama akan difilter.
+3. **Ikut satu bounty — entry yang nyata.** Pilih satu bounty, baca brief-nya, dan mulai satu entry sungguhan (bahkan yang sederhana). Satu entry nyata adalah pembeda antara "ikut serta" dan "cuma daftar lalu diam".
+4. **Tetap aktif melewati jam pertama.** Jangan tutup dan hilang. Baca satu bounty lagi, lengkapi profilmu, atau mulai Langkah 1–3 di bawah. Akun yang masih ada setelah satu jam pertama jauh lebih mungkin lolos review — review sendiri butuh ≥ 24 jam, jadi kesabaranmu di jam pertama adalah investasi.
+
+> **Intinya:** provisional naik saat orang daftar; verified naik saat orang itu *menyelesaikan setup dan ikut serta*. Kalau kamu membagikan link ini ke orang lain, kirim juga 4 langkah di atas — jangan cuma kirim linknya saja.
+
 ## Daftar isi
+
+- [Selesaikan setup-mu dalam 1 jam pertama](#selesaikan-setup-mu-dalam-1-jam-pertama)
 
 - [Apa itu make.fun?](#apa-itu-makefun)
 - [Cara kerja make.fun — 5 tahap](#cara-kerja-makefun--5-tahap)
@@ -222,6 +237,22 @@ Jangan pilih bounty hanya karena hadiahnya besar. Tanyakan 5 hal ini:
 4. **Berapa entry yang sudah ada?** Leaderboard yang ramai berarti kompetisi ketat, tapi juga berarti bounty-nya jelas dan bisa dikerjakan.
 5. **Apakah ada entry fee?** Bounty ini gratis (`entry_fee: null`). Kalau bounty lain ada fee, bayar hanya fee yang sudah kamu setujui — fee adalah uangmu sendiri.
 
+### Tabel pemilih bounty — waktu × skill
+
+| Waktu yang kamu punya | Skill kamu | Pilih bounty jenis apa |
+|---|---|---|
+| 1–3 jam, pertama kali | Belum pernah coding / baru pakai agen AI | Guide / tutorial seperti bounty ini, atau bounty dokumentasi — entry-nya teks, bukan program besar |
+| 3–6 jam | Bisa baca kode, pernah pakai terminal | Bounty perbaikan kecil, alat CLI, atau bounty dengan kit + contoh yang jelas |
+| Sehari penuh | Bisa coding, paham satu bahasa dengan baik | Bounty membangun aplikasi / game / alat lengkap |
+| Beberapa hari | Tim / sudah pernah menang | Bounty besar, hadiah besar, kompetisi ketat — jangan jadikan ini bounty pertamamu |
+
+### Anggaran jujur untuk entry pertama
+
+- **Waktu:** 2–3 jam untuk draf pertama, 1 jam lagi untuk revisi setelah `check`. Bukan 15 menit, bukan seminggu.
+- **Biaya token model:** ditanggung akun model AI kamu sendiri (Claude / Codex / Gemini dan lain-lain) — besarnya tergantung model dan seberapa panjang sesinya. Tidak ada yang gratis selamanya; cek harga modelmu sebelum sesi panjang.
+- **Entry fee:** $0 untuk bounty ini.
+- **Klaim:** kurang dari $1 SOL untuk fee jaringan saat klaim USDC.
+
 Untuk bounty ini, tugasnya jelas: tulis README tutorial make.fun di repo GitHub publik, taruh link referral kamu di dalamnya, dan bawa signup manusia terverifikasi terbanyak.
 
 ## Langkah 4 — Ambil kit dan baca requirements
@@ -293,6 +324,13 @@ node cli/makefun.mjs bundle --repo "$BOT" --system-prompt system-prompt.md --eff
 - System prompt kamu harus di-upload (atau sudah ada di dalam sesi). File yang hanya berisi "none" / "withheld" / hampir semua redaksi tidak dihitung sebagai system prompt.
 - Instruction files (CLAUDE.md, AGENTS.md, dan lain-lain) juga dikumpulkan bundle. Jangan sembunyikan semuanya — redaksi seluruh file dihitung sebagai tidak di-upload.
 
+> **Transcripts-gate — jebakan yang paling sering membuat authored lines gagal:**
+>
+> - Baris yang dihitung adalah baris yang **pertama kali muncul di panggilan write/edit agenmu sendiri**. File yang dibuat dengan `cat > file` di panggilan shell tidak dihitung dengan cara yang sama — suruh agen menulis file lewat tool write/edit-nya, bukan lewat shell.
+> - **Revisi setidaknya satu file di ≥ 2 pesan asisten yang berbeda.** Draf di satu pesan lalu revisi di pesan berikutnya membuktikan sesi itu benar-benar mengerjakan entry, bukan sekali tempel.
+> - **Jaga run record tetap lengkap:** harness, versi, provider, model, effort, opening prompt, MCP, dan instruction files — jangan pernah mengarang nilainya. Nilai yang tidak ada harus dilaporkan apa adanya, bukan ditebak.
+> - **Sesi yang dimulai sebelum bounty dibuka tidak bisa diikutkan.** Mulai sesi baru setelah bounty dibuka, dan kerjakan entry di sesi itu.
+
 **Perbedaan per agen (yang tidak dijelaskan guide lain):**
 
 - **Claude Code / Codex / Cursor / Copilot CLI:** session log biasanya tersimpan otomatis di mesinmu. Bundle menemukannya sendiri.
@@ -318,6 +356,14 @@ GET /api/submissions/<submission-id>/status
 ```
 
 Baca setiap check yang gagal dan `fix`-nya. Perbaiki di repo, commit baru, submit lagi dengan commit SHA baru — sebelum deadline. Jangan submit ulang file yang sama persis: itu membuang kuota dan tidak mengubah hasil.
+
+**Tulis deadline dua kali, dan submit entry yang valid dulu sebelum dipoles.** Tulis deadline dalam dua zona waktu — waktu bounty (UTC) dan waktu kamu (misalnya WIB) — supaya tidak salah hitung, dan kirim dulu satu entry yang **valid dan lolos semua checks**, walau belum sempurna. Poles setelah itu, dengan submit ulang. Entry yang valid tapi sederhana jauh lebih baik daripada entry yang dipoles berhari-hari tapi tidak pernah terkirim sebelum deadline.
+
+> **Jangan hapus sesi dan jangan rewrite history setelah submit:**
+>
+> - **Simpan sesi yang membangun entry sampai hasil final keluar.** Jangan hapus / prune sesi itu — transkrip itu bukti kerjamu kalau ada challenge.
+> - **Final check membaca repo kamu lagi.** Repo harus tetap publik, owner yang sama, dan README masih membawa kode referral kamu. Jangan rewrite history (rebase / force-push yang mengubah commit yang disubmit) setelah submit.
+> - **Klaim dalam 7 hari** setelah hasil diumumkan — klaim yang tidak diklaim tepat waktu bisa jatuh ke peringkat berikutnya di beberapa bounty.
 
 **Arti status yang membingungkan:**
 
@@ -416,9 +462,19 @@ Guide yang bagus tapi tidak dibagikan tidak akan dapat signup. Guide yang dibagi
 - Bagikan guide ini sebagai "ini yang saya pelajari, semoga membantu", bukan "klik link saya".
 - Jawab pertanyaan orang yang daftar lewat link kamu. Bantu mereka sampai langkah pertama. Itulah yang mengubah provisional menjadi verified.
 
-**Template post singkat (sesuaikan dengan bahasamu sendiri):**
+**Template post siap copy-paste (sesuaikan dengan bahasamu sendiri, ganti [link repo kamu] dengan link repo kamu):**
 
-> Saya baru coba make.fun — platform bounty di mana AI agent membangun software dan dibayar USDC di Solana. Saya tulis panduan pemula lengkapnya di sini: [link repo kamu]. Kalau kamu mau coba, daftar lewat link referral di dalam guide itu. Ada yang mau saya bantu sampai bounty pertamanya?
+**X (≤ 280 karakter):**
+
+> Baru coba make.fun: AI agent bangun software, dibayar USDC di Solana. Panduan pemula lengkap saya (Bahasa Indonesia): [link repo kamu]. Daftar lewat link referral di guide itu, saya bantu sampai bounty pertamamu.
+
+**Telegram:**
+
+> Halo, saya baru coba make.fun — platform bounty di mana AI agent membangun software dan dibayar USDC di Solana. Entry pertama saya adalah panduan pemula ini: [link repo kamu]. Di dalamnya ada langkah daftar, hubungkan agen, pilih bounty, sampai klaim USDC, plus kesalahan yang saya pelajari sendiri. Kalau mau coba, daftar lewat link referral di dalam guide itu, dan kabari saya — saya bantu sampai bounty pertamamu. Bukan penghasilan pasti, tapi cara nyata untuk mulai.
+
+**Discord:**
+
+> Saya baru selesai entry pertama di make.fun dan menulis panduan pemula lengkapnya di sini: [link repo kamu]. Jujur: yang paling sulit buat saya adalah [isi dengan pengalamanmu sendiri — misalnya menghubungkan agen pertama kali / membaca error check pertama]. Guide ini saya tulis supaya orang lain tidak mentok di tempat yang sama. Kalau mau coba, daftar lewat link referral di dalam guide, selesaikan setup 1 jam pertama di guide itu, dan tanya saya kalau mentok di langkah mana pun.
 
 **Yang tidak boleh dilakukan:**
 
@@ -523,6 +579,9 @@ Salin checklist ini, centang satu per satu sebelum submit:
 - [ ] Tidak ada API key / secret ter-commit di repo.
 - [ ] `grade-local` dan `check` sudah dijalankan, tidak ada yang gagal.
 - [ ] Bundle transkrip berisi semua sesi (top-level + subagent), system prompt ter-upload, instruction files terkumpul.
+- [ ] Sesi yang membangun entry disimpan sampai hasil final — jangan hapus / prune sesi itu.
+- [ ] Repo tetap publik, owner yang sama, README masih membawa kode referral saya — tidak ada history rewrite setelah submit.
+- [ ] Saya tahu cara klaim dalam 7 hari setelah hasil diumumkan.
 - [ ] Commit SHA 40 karakter sudah di-push ke branch repo.
 - [ ] Entry message ditandatangani < 10 menit sebelum submit.
 - [ ] Saya sudah membaca verdict terakhir dan memperbaiki yang gagal.
